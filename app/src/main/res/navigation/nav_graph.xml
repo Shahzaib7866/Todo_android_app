@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/nav_graph"
+app:startDestination="@id/splashFragment">
+
+<!-- 1. Splash Fragment (Start Destination) -->
+<fragment
+    android:id="@+id/splashFragment"
+    android:name="com.shahzy.todoapp.presentation.splash.SplashFragment"
+    android:label="SplashFragment"
+    tools:layout="@layout/fragment_splash">
+
+    <!-- Splash se Onboarding par jane ka action -->
+    <action
+        android:id="@+id/action_splashFragment_to_onBoardingFragment"
+        app:destination="@id/onBoardingFragment"
+        app:popUpTo="@id/splashFragment"
+        app:popUpToInclusive="true" />
+
+    <!-- Splash se Direct Home/Todo par jane ka action -->
+    <action
+        android:id="@+id/action_splashFragment_to_todoFragment"
+        app:destination="@id/todoFragment"
+        app:popUpTo="@id/splashFragment"
+        app:popUpToInclusive="true" />
+</fragment>
+
+<!-- 2. Onboarding Fragment -->
+<fragment
+    android:id="@+id/onBoardingFragment"
+    android:name="com.shahzy.todoapp.presentation.onboarding.OnBoardingFragment"
+    android:label="fragment_on_boarding"
+    tools:layout="@layout/fragment_on_boarding">
+
+    <!-- Onboarding khatam hone ke baad Todo screen par jane ka action -->
+    <action
+        android:id="@+id/action_onBoardingFragment_to_todoFragment"
+        app:destination="@id/todoFragment"
+        app:popUpTo="@id/onBoardingFragment"
+        app:popUpToInclusive="true" />
+</fragment>
+
+<!-- 3. Todo / Home Fragment -->
+<fragment
+    android:id="@+id/todoFragment"
+    android:name="com.shahzy.todoapp.presentation.home.TodoFragment"
+    android:label="fragment_todo"
+    tools:layout="@layout/fragment_todo" />
+
+</navigation>
