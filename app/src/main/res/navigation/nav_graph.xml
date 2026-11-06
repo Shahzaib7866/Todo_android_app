@@ -46,8 +46,14 @@ app:startDestination="@id/splashFragment">
 <!-- 3. Todo / Home Fragment -->
 <fragment
     android:id="@+id/todoFragment"
-    android:name="com.example.todoapp.presentation.home.TodoFragment"
+    android:name="com.example.todoapp.presentation.home.HomeFragment"
     android:label="fragment_todo"
-    tools:layout="@layout/fragment_todo" />
+    tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/addTodoFragment"
+        android:name="com.example.todoapp.presentation.add.AddTodoFragment"
+        android:label="Add Todo"
+        tools:layout="@layout/fragment_add_todos" />
 
 </navigation>

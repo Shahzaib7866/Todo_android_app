@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.domain.model.Todo
-import com.shahzy.todoapp.databinding.ItemTodoBinding
+import com.example.todoapp.databinding.ItemTodoBinding
 
 class TodoAdapter(
     private val onToggle: (Todo) -> Unit
@@ -21,9 +21,9 @@ class TodoAdapter(
 
             // Recycle hone par purana listener trigger na ho
             binding.cbTask.setOnCheckedChangeListener(null)
-            binding.cbTask.isChecked = todo.isDone
+            binding.cbTask.isChecked = todo.isCompleted
 
-            binding.txtTaskTitle.paintFlags = if (todo.isDone) {
+            binding.txtTaskTitle.paintFlags = if (todo.isCompleted) {
                 binding.txtTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             } else {
                 binding.txtTaskTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()

@@ -15,7 +15,9 @@ class TodoRepositoryImpl @Inject constructor(
 
     override fun getTodos(): Flow<List<Todo>> =
         dao.getAllTodos().map { list -> list.map { it.toDomain() } }
-
+//     fun getTodos(): Flow<List<Todo>> {
+//        return dao.getAllTodos()
+//    }
     override suspend fun getTodo(id: Int): Todo? =
         dao.getTodoById(id)?.toDomain()
 
