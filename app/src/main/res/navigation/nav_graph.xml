@@ -8,7 +8,7 @@ app:startDestination="@id/splashFragment">
 <!-- 1. Splash Fragment (Start Destination) -->
 <fragment
     android:id="@+id/splashFragment"
-    android:name="com.shahzy.todoapp.presentation.splash.SplashFragment"
+    android:name="com.example.todoapp.presentation.splash.SplashFragment"
     android:label="SplashFragment"
     tools:layout="@layout/fragment_splash">
 
@@ -30,7 +30,7 @@ app:startDestination="@id/splashFragment">
 <!-- 2. Onboarding Fragment -->
 <fragment
     android:id="@+id/onBoardingFragment"
-    android:name="com.shahzy.todoapp.presentation.onboarding.OnBoardingFragment"
+    android:name="com.example.todoapp.presentation.onboarding.OnBoardingFragment"
     android:label="fragment_on_boarding"
     tools:layout="@layout/fragment_on_boarding">
 
@@ -40,12 +40,13 @@ app:startDestination="@id/splashFragment">
         app:destination="@id/todoFragment"
         app:popUpTo="@id/onBoardingFragment"
         app:popUpToInclusive="true" />
+
 </fragment>
 
 <!-- 3. Todo / Home Fragment -->
 <fragment
     android:id="@+id/todoFragment"
-    android:name="com.shahzy.todoapp.presentation.home.TodoFragment"
+    android:name="com.example.todoapp.presentation.home.TodoFragment"
     android:label="fragment_todo"
     tools:layout="@layout/fragment_todo" />
 

@@ -7,8 +7,13 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+// plugins ke baad, android {} ke bahar
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
-    namespace = "com.shahzy.todoapp"
+    namespace = "com.example.todoapp"
     compileSdk = 35
 
     defaultConfig {
@@ -63,7 +68,10 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation("androidx.room:room-runtime:2.8.5")
-    ksp("androidx.room:room-compiler:2.8.5")
+    ksp("androidx.room:room-compiler:2.5.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 }
 
 
