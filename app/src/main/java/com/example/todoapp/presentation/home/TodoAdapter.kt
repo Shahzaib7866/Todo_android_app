@@ -1,3 +1,4 @@
+
 package com.example.todoapp.presentation.home
 
 import android.graphics.Paint
@@ -6,11 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.domain.model.Todo
 import com.example.todoapp.databinding.ItemTodoBinding
+import com.example.todoapp.domain.model.Todo
 
 class TodoAdapter(
-    private val onToggle: (Todo) -> Unit
+    private val onToggle: (Todo) -> Unit,
+    private val onClick: (Todo) -> Unit,
+    private val onDelete: (Todo) -> Unit
 ) : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
     inner class TodoViewHolder(private val binding: ItemTodoBinding) :
@@ -19,7 +22,6 @@ class TodoAdapter(
         fun bind(todo: Todo) {
             binding.txtTaskTitle.text = todo.title
 
-            // Recycle hone par purana listener trigger na ho
             binding.cbTask.setOnCheckedChangeListener(null)
             binding.cbTask.isChecked = todo.isCompleted
 
@@ -30,6 +32,8 @@ class TodoAdapter(
             }
 
             binding.cbTask.setOnCheckedChangeListener { _, _ -> onToggle(todo) }
+            binding.root.setOnClickListener { onClick(todo) }
+            binding.btnDelete.setOnClickListener { onDelete(todo) }
         }
     }
 
@@ -41,8 +45,10 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
     private object DiffCallback : DiffUtil.ItemCallback<Todo>() {
         override fun areItemsTheSame(old: Todo, new: Todo) = old.id == new.id
         override fun areContentsTheSame(old: Todo, new: Todo) = old == new
     }
+
 }

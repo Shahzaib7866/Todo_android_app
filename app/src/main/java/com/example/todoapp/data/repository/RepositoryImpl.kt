@@ -1,6 +1,6 @@
 package com.example.todoapp.data.repository
 
-import com.example.todoapp.data.database.dao.TodoDao
+import com.example.todoapp.data.database.TodoDao
 import com.example.todoapp.data.mapper.toDomain
 import com.example.todoapp.data.mapper.toEntity
 import com.example.todoapp.domain.model.Todo

@@ -2,8 +2,8 @@ package com.example.todoapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.todoapp.data.database.dao.TodoDao
-import com.example.todoapp.data.database.database.TodoDatabase
+import com.example.todoapp.data.database.TodoDao
+import com.example.todoapp.data.database.TodoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,13 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): TodoDatabase =
-        Room.databaseBuilder(context, TodoDatabase::class.java, "todo_db").build()
+        Room.databaseBuilder(
+            context,
+            TodoDatabase::class.java,
+            "todo_db"
+        ).fallbackToDestructiveMigration().build()
 
     @Provides
+    @Singleton
     fun provideDao(db: TodoDatabase): TodoDao = db.todoDao()
 }

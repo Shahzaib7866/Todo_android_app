@@ -1,11 +1,9 @@
-package com.example.todoapp.data.database.database
+package com.example.todoapp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.todoapp.data.database.dao.TodoDao
-import com.example.todoapp.data.database.entity.TodoEntity
 
 //@Database(entities = [TodoEntity::class], version = 1, exportSchema = true)
 @Database(entities = [TodoEntity::class], version = 1)

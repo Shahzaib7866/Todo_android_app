@@ -14,10 +14,19 @@ class AddTodoViewModel @Inject constructor(
     private val repository: RepoInterface
 ) : ViewModel() {
 
-    fun save(title: String, description: String, onSaved: () -> Unit) {
+    fun loadTodo(id: Int, onLoaded: (Todo) -> Unit) {
         viewModelScope.launch {
-            repository.saveTodo(Todo(title = title.trim(), description = description.trim()))
+            repository.getTodo(id)?.let(onLoaded)
+        }
+    }
+
+    fun save(existing: Todo?, title: String, description: String, onSaved: () -> Unit) {
+        viewModelScope.launch {
+            val todo = existing?.copy(title = title.trim(), description = description.trim())
+                ?: Todo(title = title.trim(), description = description.trim())
+            repository.saveTodo(todo)
             onSaved()
         }
     }
 }
+

@@ -1,6 +1,6 @@
 package com.example.todoapp.data.mapper
 
-import com.example.todoapp.data.database.entity.TodoEntity
+import com.example.todoapp.data.database.TodoEntity
 import com.example.todoapp.domain.model.Todo
 
 fun TodoEntity.toDomain(): Todo = Todo(
