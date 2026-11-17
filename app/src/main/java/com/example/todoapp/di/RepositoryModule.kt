@@ -17,4 +17,3 @@ abstract class RepositoryModule {
     abstract fun bindTodoRepository(impl: TodoRepositoryImpl): RepoInterface
 }
 
-

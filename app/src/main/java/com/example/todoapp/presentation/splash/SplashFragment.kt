@@ -1,60 +1,34 @@
 package com.example.todoapp.presentation.splash
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
-import com.example.todoapp.databinding.FragmentSplashBinding
+import com.example.todoapp.core.shared.BaseFragment
+import com.example.todoapp.databinding.SplashBinding
+import com.example.todoapp.utils.observeFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashFragment : Fragment() {
+class SplashFragment : BaseFragment<SplashBinding, SplashViewModel>(
+    SplashBinding::inflate,
+    SplashViewModel::class.java
+) {
 
-    private var _binding: FragmentSplashBinding? = null
-    private val binding get() = _binding!!
-
-    private val viewModel: SplashViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSplashBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onViewReady() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun observeViewModel() {
         observeNavigation()
     }
 
     private fun observeNavigation() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.splashEvent.collect { event ->
-                    when (event) {
-                        is SplashEvent.OnNavigateToOnBoarding -> {
-                            findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
-                        }
-                        is SplashEvent.OnNavigateToHome -> {
-                            findNavController().navigate(R.id.action_splashFragment_to_todoFragment)
-                        }
-                    }
-                }
+        // Ab yahan hamara banaya hua clean extension function use ho raha hai
+        observeFlow(viewModel.navigationState) { event ->
+            when (event) {
+                SplashEvents.NavigateToOnboarding ->
+                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                SplashEvents.NavigateToHome ->
+                    findNavController().navigate(R.id.action_splashFragment_to_todoFragment)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

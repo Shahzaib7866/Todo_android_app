@@ -1,58 +1,82 @@
 package com.example.todoapp.presentation.onboarding
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.R
-import com.example.todoapp.databinding.FragmentOnBoardingBinding
+import com.example.todoapp.core.shared.BaseFragment
+import com.example.todoapp.databinding.AddTodosBinding
+import com.example.todoapp.databinding.OnBoardingBinding
+import com.example.todoapp.presentation.add.AddTodoViewModel
+import com.example.todoapp.utils.observeFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlin.jvm.java
+
 
 @AndroidEntryPoint
-class OnBoardingFragment : Fragment() {
+class OnBoardingFragment : BaseFragment<OnBoardingBinding, OnBoardingViewModel>(
+    OnBoardingBinding::inflate,
+    OnBoardingViewModel::class.java
+) {
 
-    private var _binding: FragmentOnBoardingBinding? = null
-    private val binding get() = _binding!!
-
-    private val viewModel: OnboardingViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onViewReady() {
+        setupPager()
+        setupButtons()
+        setupBackPress()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun observeViewModel() {
+        observeNavigation()
+    }
 
-        binding.btnGetStarted.setOnClickListener {
-            viewModel.onGetStartedClicked()
+    // ViewPager2 mein 3 pages lagao aur page badalne par buttons ka text update karo
+    private fun setupPager() {
+        binding.viewPager.adapter = OnBoardingPagerAdapter(viewModel.pages)
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) = updateButtons(position)
+        })
+        updateButtons(binding.viewPager.currentItem)
+    }
+
+    // Aakhri page par "Get Started" aur Skip chhupa do
+    private fun updateButtons(position: Int) {
+        val isLast = position == viewModel.pages.lastIndex
+        binding.btnNext.text = if (isLast) getString(R.string.get_started) else getString(R.string.next)
+        binding.btnSkip.isVisible = !isLast
+    }
+
+    private fun setupButtons() {
+        binding.btnNext.setOnClickListener {
+            val current = binding.viewPager.currentItem
+            if (current == viewModel.pages.lastIndex) {
+                viewModel.onGetStartedClicked()
+            } else {
+                binding.viewPager.currentItem = current + 1
+            }
         }
+        binding.btnSkip.setOnClickListener { viewModel.onGetStartedClicked() }
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.onboardingEvent.collect { event ->
-                    when (event) {
-                        is OnboardingEvent.NavigateToHome -> {
-                            findNavController().navigate(R.id.action_onBoardingFragment_to_todoFragment)
-                        }
-                    }
-                }
+    // Back: pehle page par ho to app se bahar, warna pichle page par
+    private fun setupBackPress() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.viewPager.currentItem == 0) {
+                isEnabled = false
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            } else {
+                binding.viewPager.currentItem -= 1
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    // Onboarding khatam hone par Home par jao (naye observeFlow extension ke sath)
+    private fun observeNavigation() {
+        observeFlow(viewModel.navigateToHome) {
+            findNavController().navigate(R.id.action_onBoardingFragment_to_todoFragment)
+        }
     }
 }

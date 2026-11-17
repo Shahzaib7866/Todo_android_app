@@ -2,8 +2,8 @@ package com.example.todoapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.todoapp.data.database.TodoDao
-import com.example.todoapp.data.database.TodoDatabase
+import com.example.todoapp.data.database.dao.TodoDao
+import com.example.todoapp.core.database.TodoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +23,8 @@ object DatabaseModule {
             TodoDatabase::class.java,
             "todo_db"
         ).fallbackToDestructiveMigration().build()
+
+    //new keyword use krin gy tu object bny ga
 
     @Provides
     @Singleton

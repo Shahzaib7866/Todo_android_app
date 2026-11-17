@@ -1,14 +1,15 @@
-
-package com.example.todoapp.presentation.home
+package com.example.todoapp.utils
 
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemTodoBinding
 import com.example.todoapp.domain.model.Todo
+import com.example.todoapp.domain.model.isOverdue
 
 class TodoAdapter(
     private val onToggle: (Todo) -> Unit,
@@ -20,26 +21,29 @@ class TodoAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(todo: Todo) {
-            binding.txtTaskTitle.text = todo.title
+            binding.apply {
+                txtTaskTitle.text = todo.title
+                cbTask.setOnCheckedChangeListener(null)
+                cbTask.isChecked = todo.isCompleted
+                txtTaskTitle.paintFlags = if (todo.isCompleted) {
+                    txtTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    txtTaskTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
+                cbTask.setOnCheckedChangeListener { _, _ -> onToggle(todo) }
+                root.setOnClickListener { onClick(todo) }
+                btnDelete.setOnClickListener { onDelete(todo) }
 
-            binding.cbTask.setOnCheckedChangeListener(null)
-            binding.cbTask.isChecked = todo.isCompleted
-
-            binding.txtTaskTitle.paintFlags = if (todo.isCompleted) {
-                binding.txtTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            } else {
-                binding.txtTaskTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                // Status label aur Overdue label
+                txtStatus.showStatus(todo.status)
+                txtOverdue.isVisible = todo.isOverdue()
             }
-
-            binding.cbTask.setOnCheckedChangeListener { _, _ -> onToggle(todo) }
-            binding.root.setOnClickListener { onClick(todo) }
-            binding.btnDelete.setOnClickListener { onDelete(todo) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TodoViewHolder(binding)
+        return TodoViewHolder(binding) // Yahan TodoAdapter. likhne ki zaroorat nahi
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
@@ -50,5 +54,4 @@ class TodoAdapter(
         override fun areItemsTheSame(old: Todo, new: Todo) = old.id == new.id
         override fun areContentsTheSame(old: Todo, new: Todo) = old == new
     }
-
 }

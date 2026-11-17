@@ -2,7 +2,7 @@ package com.example.todoapp.presentation.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.core.shared.datastore.OnboardingDataStore
+import com.example.todoapp.core.cache.OnboardingDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,30 +18,29 @@ class SplashViewModel @Inject constructor(
     private val onboardingPreferences: OnboardingDataStore
 ) : ViewModel() {
 
-    private val _splashEvent = MutableSharedFlow<SplashEvent>()
-    val splashEvent: SharedFlow<SplashEvent> = _splashEvent.asSharedFlow()
+    // --- EVENT: Navigation aik one-time event hai, is liye SharedFlow use kiya hai ---
+    private val _navigationEvents = MutableSharedFlow<SplashEvents>()
+    val navigationState: SharedFlow<SplashEvents> = _navigationEvents.asSharedFlow()
 
     init {
         checkSplash()
     }
 
-    fun checkSplash() {
+    private fun checkSplash() {
         viewModelScope.launch {
-            // 2 seconds delay for splash
             delay(2000.milliseconds)
-
             val complete = onboardingPreferences.isOnboardingCompleted.first()
 
             if (complete) {
-                _splashEvent.emit(SplashEvent.OnNavigateToHome)
+                _navigationEvents.emit(SplashEvents.NavigateToHome)
             } else {
-                _splashEvent.emit(SplashEvent.OnNavigateToOnBoarding)
+                _navigationEvents.emit(SplashEvents.NavigateToOnboarding)
             }
         }
     }
 }
 
-sealed class SplashEvent {
-    object OnNavigateToHome : SplashEvent()
-    object OnNavigateToOnBoarding : SplashEvent()
+sealed class SplashEvents {
+    data object NavigateToHome : SplashEvents()
+    data object NavigateToOnboarding : SplashEvents()
 }

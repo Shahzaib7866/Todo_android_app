@@ -4,6 +4,10 @@ data class Todo(
     val id: Int = 0,
     val title: String,
     val description: String = "",
-    val isCompleted: Boolean = false,
+    val status: TodoStatus = TodoStatus.PENDING,
+    val priority: Priority = Priority.LOW,
+    val dueDate: Long? = null,
     val createdAt: Long = System.currentTimeMillis()
-)
+) {
+    val isCompleted: Boolean get() = status == TodoStatus.COMPLETED
+}
