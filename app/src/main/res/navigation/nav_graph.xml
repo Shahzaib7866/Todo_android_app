@@ -1,59 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/nav_graph"
-app:startDestination="@id/splashFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
 
-<!-- 1. Splash Fragment (Start Destination) -->
-<fragment
-    android:id="@+id/splashFragment"
-    android:name="com.example.todoapp.presentation.splash.SplashFragment"
-    android:label="SplashFragment"
-    tools:layout="@layout/fragment_splash">
+    <!-- 1. Splash -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.todoapp.presentation.splash.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/splash">
 
-    <!-- Splash se Onboarding par jane ka action -->
-    <action
-        android:id="@+id/action_splashFragment_to_onBoardingFragment"
-        app:destination="@id/onBoardingFragment"
-        app:popUpTo="@id/splashFragment"
-        app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
 
-    <!-- Splash se Direct Home/Todo par jane ka action -->
-    <action
-        android:id="@+id/action_splashFragment_to_todoFragment"
-        app:destination="@id/todoFragment"
-        app:popUpTo="@id/splashFragment"
-        app:popUpToInclusive="true" />
-</fragment>
+        <action
+            android:id="@+id/action_splashFragment_to_todoFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
-<!-- 2. Onboarding Fragment -->
-<fragment
-    android:id="@+id/onBoardingFragment"
-    android:name="com.example.todoapp.presentation.onboarding.OnBoardingFragment"
-    android:label="fragment_on_boarding"
-    tools:layout="@layout/fragment_on_boarding">
+    <!-- 2. Onboarding -->
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.todoapp.presentation.onboarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/on_boarding">
 
-    <!-- Onboarding khatam hone ke baad Todo screen par jane ka action -->
-    <action
-        android:id="@+id/action_onBoardingFragment_to_todoFragment"
-        app:destination="@id/todoFragment"
-        app:popUpTo="@id/onBoardingFragment"
-        app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_onBoardingFragment_to_todoFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
-</fragment>
+    <!-- 3. Home (bottom tab 1). ID todoFragment se homeFragment kar di -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.todoapp.presentation.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/home">
 
-<!-- 3. Todo / Home Fragment -->
-<fragment
-    android:id="@+id/todoFragment"
-    android:name="com.example.todoapp.presentation.home.HomeFragment"
-    android:label="fragment_todo"
-    tools:layout="@layout/fragment_home" />
+        <action
+            android:id="@+id/action_todoFragment_to_addTodoFragment"
+            app:destination="@id/addTodoFragment" />
+    </fragment>
 
+    <!-- 4. Calendar (bottom tab 2) -->
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.todoapp.presentation.calender.CalenderFragment"
+        android:label="Calendar"
+        tools:layout="@layout/calender" />
+
+    <!-- 5. Status (bottom tab 3) -->
+    <fragment
+        android:id="@+id/statusFragment"
+        android:name="com.example.todoapp.presentation.status.StatusFragment"
+        android:label="Status"
+        tools:layout="@layout/status" />
+
+    <!-- 6. Settings (bottom tab 4) -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.todoapp.presentation.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/settings" />
+
+    <!-- 7. Add / Edit Todo -->
     <fragment
         android:id="@+id/addTodoFragment"
         android:name="com.example.todoapp.presentation.add.AddTodoFragment"
         android:label="Add Todo"
-        tools:layout="@layout/fragment_add_todos" />
+        tools:layout="@layout/add_todos">
 
+        <!-- -1 = new task, positive ID = edit task -->
+        <argument
+            android:name="todoId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_addTodoFragment_to_todoFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/addTodoFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

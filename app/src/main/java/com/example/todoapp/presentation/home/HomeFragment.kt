@@ -37,6 +37,20 @@ import dagger.hilt.android.AndroidEntryPoint
         setupList()
     }
 
+//    private fun setupList() {
+//        // Yahan TodoAdapter ko teeno callbacks ke sath initialize kiya hai
+//        todoAdapter = TodoAdapter(
+//            onToggle = { todo -> viewModel.toggleCompleted(todo) },
+//            onClick = { todo ->
+//                // Home se Add/Edit screen par task ki ID ke sath navigate karna
+//                val action = HomeFragmentDirections.actionHomeFragmentToAddTodoFragment(todo.id)
+//                findNavController().navigate(action)
+//            },
+//            onDelete = { todo -> viewModel.delete(todo) }
+//        )
+//        binding.rvTodos.adapter = todoAdapter
+//    }
+
     private fun setupList() {
         val adapter = createTodoAdapter(viewModel)
         binding.rvTodos.adapter = adapter
@@ -137,7 +151,10 @@ import dagger.hilt.android.AndroidEntryPoint
     }
 
     // BaseFragment ka hook: screen wapas aaye to rows dobara bind karo (Overdue label tazah ho)
-     fun onScreenResumed() {
+    override fun onResume() {
+        super.onResume()
+        // Screen wapas aaye to rows dobara bind karo (Overdue label tazah ho)
         binding.rvTodos.adapter?.notifyDataSetChanged()
     }
 }
+

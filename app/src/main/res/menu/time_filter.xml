@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/time_all" android:title="@string/filter_all" />
+        <item android:id="@+id/time_today" android:title="@string/filter_today" />
+        <item android:id="@+id/time_upcoming" android:title="@string/filter_upcoming" />
+        <item android:id="@+id/time_overdue" android:title="@string/filter_overdue" />
+    </group>
 </menu>

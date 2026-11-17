@@ -1,12 +1,12 @@
 package com.example.todoapp.presentation.status
 
-import android.os.Bundle
 import androidx.core.view.isVisible
 import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
 import com.example.todoapp.databinding.StatusBinding
 import com.example.todoapp.domain.model.StatusFilter
 import com.example.todoapp.utils.TodoAdapter
+import com.example.todoapp.utils.createTodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +18,7 @@ class StatusFragment : BaseFragment<StatusBinding, StatusViewModel>(
     private lateinit var todoAdapter: TodoAdapter
 
     override fun onViewReady() {
-        // Yahan ViewModel ke asli functions (toggleCompleted aur delete) pass kiye hain
-        todoAdapter = TodoAdapter(
-            onToggle = { todo -> viewModel.toggleCompleted(todo) },
-            onClick = { /* Agar item click par kuch kholna ho */ },
-            onDelete = { todo -> viewModel.delete(todo) }
-        )
+        todoAdapter = createTodoAdapter(viewModel)
         binding.rvTodos.adapter = todoAdapter
 
         // Chip group filter setup

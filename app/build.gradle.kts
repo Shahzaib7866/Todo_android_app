@@ -2,7 +2,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
-    //ye modern android ko support krta hai...moving from kapt --> ksp
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -72,8 +71,9 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.11.0")
+
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 
 }
-
-
 
