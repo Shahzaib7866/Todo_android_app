@@ -32,6 +32,8 @@
         app:boxCornerRadiusBottomStart="24dp"
         app:boxCornerRadiusTopEnd="24dp"
         app:boxCornerRadiusTopStart="24dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/txtHeader"
         app:layout_constraintEnd_toStartOf="@id/btnSearch"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +46,8 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="#757575"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,21 +88,21 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipAll"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/filter_all" />
         <com.google.android.material.chip.Chip
             android:id="@+id/chipHigh"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/priority_high" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipLow"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/priority_low" />

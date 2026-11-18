@@ -8,8 +8,8 @@ import com.example.todoapp.databinding.AddTodosBinding
 import com.example.todoapp.domain.model.Priority
 import com.example.todoapp.domain.model.TodoStatus
 import com.example.todoapp.domain.model.startOfDay
-import com.example.todoapp.utils.DueDateUtils
-import com.example.todoapp.utils.observeFlow
+import com.example.todoapp.core.shared.utils.DueDateUtils
+import com.example.todoapp.core.shared.utils.observeFlow
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker

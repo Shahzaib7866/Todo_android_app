@@ -32,20 +32,20 @@
         app:singleSelection="true">
         <com.google.android.material.chip.Chip
             android:id="@+id/chipStatusAll"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/filter_all" />
         <com.google.android.material.chip.Chip
             android:id="@+id/chipActive"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_active" />
         <com.google.android.material.chip.Chip
             android:id="@+id/chipCompleted"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_completed" />

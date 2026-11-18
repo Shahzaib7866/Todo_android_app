@@ -39,8 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
+                app:boxStrokeColor="@color/yellow"
                 app:counterEnabled="true"
-                app:counterMaxLength="50">
+                app:counterMaxLength="50"
+                app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputTitle"
@@ -49,7 +51,9 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapSentences"
                     android:maxLength="50"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColorHint="#757575" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Description -->
@@ -59,7 +63,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Description (optional)">
+                android:hint="Description (optional)"
+                app:boxStrokeColor="@color/yellow"
+                app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputDescription"
@@ -67,7 +73,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="top|start"
                     android:inputType="textMultiLine|textCapSentences"
-                    android:minLines="4" />
+                    android:minLines="4"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColorHint="#757575" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Priority: Low / High -->
@@ -86,13 +94,13 @@
                 app:singleSelection="true">
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipPrioLow"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/priority_low" />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipPrioHigh"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/priority_high" />
@@ -112,13 +120,13 @@
                 app:singleSelection="true">
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipDueToday"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_today" />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipDueUpcoming"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_upcoming" />
@@ -153,19 +161,19 @@
                     app:singleSelection="true">
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipStPending"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        style="@style/CustomChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/status_pending" />
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipStInProgress"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        style="@style/CustomChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/status_in_progress" />
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipStCompleted"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        style="@style/CustomChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/status_completed" />

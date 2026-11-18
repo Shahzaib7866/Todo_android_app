@@ -1,4 +1,4 @@
-package com.example.todoapp.utils
+package com.example.todoapp.core.shared.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected / Checked state in Dark Theme: White Text -->
+    <item android:state_checked="true" android:color="@color/white" />
+    <item android:state_selected="true" android:color="@color/white" />
+    <!-- Unselected state in Dark Theme: Light Gray Text -->
+    <item android:color="#D0D0D0" />
+</selector>

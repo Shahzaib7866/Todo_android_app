@@ -5,8 +5,8 @@ import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
 import com.example.todoapp.databinding.StatusBinding
 import com.example.todoapp.domain.model.StatusFilter
-import com.example.todoapp.utils.TodoAdapter
-import com.example.todoapp.utils.createTodoAdapter
+import com.example.todoapp.core.shared.utils.TodoAdapter
+import com.example.todoapp.core.shared.utils.createTodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -3,10 +3,11 @@ package com.example.todoapp.presentation.calender
 import androidx.core.view.isVisible
 import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
-import com.example.todoapp.utils.DueDateUtils
+import com.example.todoapp.core.shared.utils.DueDateUtils
+import com.example.todoapp.core.shared.utils.TodoAdapter
 import com.example.todoapp.databinding.CalenderBinding
 import com.example.todoapp.presentation.calendar.CalenderViewModel
-import com.example.todoapp.utils.createTodoAdapter
+import com.example.todoapp.core.shared.utils.createTodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -16,7 +17,7 @@ class CalenderFragment : BaseFragment<CalenderBinding, CalenderViewModel>(
     CalenderViewModel::class.java
 ) {
 
-    private lateinit var todoAdapter: com.example.todoapp.utils.TodoAdapter
+    private lateinit var todoAdapter: TodoAdapter
 
     override fun onViewReady() {
         setupAdapter()

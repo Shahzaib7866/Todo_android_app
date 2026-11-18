@@ -4,7 +4,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
 import com.example.todoapp.databinding.SplashBinding
-import com.example.todoapp.utils.observeFlow
+import com.example.todoapp.core.shared.utils.observeFlow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

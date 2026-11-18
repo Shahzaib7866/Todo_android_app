@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
 import com.example.todoapp.databinding.OnBoardingBinding
-import com.example.todoapp.utils.observeFlow
+import com.example.todoapp.core.shared.utils.observeFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.jvm.java
 

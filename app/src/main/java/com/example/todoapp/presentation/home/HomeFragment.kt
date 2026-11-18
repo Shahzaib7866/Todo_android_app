@@ -12,7 +12,7 @@ import com.example.todoapp.core.shared.BaseFragment
 import com.example.todoapp.databinding.HomeBinding
 import com.example.todoapp.domain.model.Priority
 import com.example.todoapp.domain.model.TimeFilter
-import com.example.todoapp.utils.createTodoAdapter
+import com.example.todoapp.core.shared.utils.createTodoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
