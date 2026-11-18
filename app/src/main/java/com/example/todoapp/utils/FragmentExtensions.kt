@@ -37,7 +37,6 @@ private fun Fragment.confirmDelete(todo: Todo, onConfirm: () -> Unit) {
         .show()
 }
 
-// Status ka chhota label: Pending (neela) / In Progress (narangi). Completed par chhupa deta hai
 fun TextView.showStatus(status: TodoStatus) {
     val (textRes, bg, fg) = when (status) {
         TodoStatus.PENDING -> Triple(R.string.status_pending, "#E3F2FD", "#1565C0")
@@ -46,15 +45,10 @@ fun TextView.showStatus(status: TodoStatus) {
     }
     setText(textRes)
     setTextColor(Color.parseColor(fg))
-    // Wahi purana gol-kone wala background (bg_overdue), bas rang badal diya
     backgroundTintList = ColorStateList.valueOf(Color.parseColor(bg))
     isVisible = true
 }
 
-
-/**
- * Fragment ke liye safe tarike se Flow collect karne ka extension function
- */
 fun <T> Fragment.observeFlow(flow: Flow<T>, action: suspend (T) -> Unit) {
     viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

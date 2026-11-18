@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
         HomeViewModel::class.java
     ) {
 
-    // Search khuli ho to Back pehle search band kare
     private val searchBackCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() = closeSearch()
     }
@@ -36,20 +35,6 @@ import dagger.hilt.android.AndroidEntryPoint
     override fun observeViewModel() {
         setupList()
     }
-
-//    private fun setupList() {
-//        // Yahan TodoAdapter ko teeno callbacks ke sath initialize kiya hai
-//        todoAdapter = TodoAdapter(
-//            onToggle = { todo -> viewModel.toggleCompleted(todo) },
-//            onClick = { todo ->
-//                // Home se Add/Edit screen par task ki ID ke sath navigate karna
-//                val action = HomeFragmentDirections.actionHomeFragmentToAddTodoFragment(todo.id)
-//                findNavController().navigate(action)
-//            },
-//            onDelete = { todo -> viewModel.delete(todo) }
-//        )
-//        binding.rvTodos.adapter = todoAdapter
-//    }
 
     private fun setupList() {
         val adapter = createTodoAdapter(viewModel)
@@ -98,7 +83,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
     private fun imm() = requireContext().getSystemService(InputMethodManager::class.java)
 
-    // ---------- Filter button (Time) ----------
     private fun setupFilterButton() {
         binding.btnFilter.setOnClickListener {
             val current = viewModel.filter.value?.time ?: TimeFilter.ALL
@@ -128,9 +112,7 @@ import dagger.hilt.android.AndroidEntryPoint
         else -> TimeFilter.ALL
     }
 
-    // ---------- Priority chips ----------
     private fun setupPriorityChips() {
-        // Screen khulte waqt ViewModel mein jo priority hai wahi chip checked dikhao
         binding.chipGroupPriority.check(
             when (viewModel.filter.value?.priority) {
                 Priority.HIGH -> R.id.chipHigh
@@ -138,7 +120,6 @@ import dagger.hilt.android.AndroidEntryPoint
                 null -> R.id.chipAll
             }
         )
-        // User chip badle to ViewModel ko naya filter batao (null = sab priorities)
         binding.chipGroupPriority.setOnCheckedStateChangeListener { _, ids ->
             viewModel.setPriority(
                 when (ids.firstOrNull()) {
@@ -150,10 +131,8 @@ import dagger.hilt.android.AndroidEntryPoint
         }
     }
 
-    // BaseFragment ka hook: screen wapas aaye to rows dobara bind karo (Overdue label tazah ho)
     override fun onResume() {
         super.onResume()
-        // Screen wapas aaye to rows dobara bind karo (Overdue label tazah ho)
         binding.rvTodos.adapter?.notifyDataSetChanged()
     }
 }

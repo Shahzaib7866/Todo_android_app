@@ -24,8 +24,6 @@ object DatabaseModule {
             "todo_db"
         ).fallbackToDestructiveMigration().build()
 
-    //new keyword use krin gy tu object bny ga
-
     @Provides
     @Singleton
     fun provideDao(db: TodoDatabase): TodoDao = db.todoDao()

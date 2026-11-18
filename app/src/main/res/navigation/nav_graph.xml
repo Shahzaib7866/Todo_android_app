@@ -5,7 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFragment">
 
-    <!-- 1. Splash -->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.todoapp.presentation.splash.SplashFragment"
@@ -25,7 +24,6 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- 2. Onboarding -->
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.example.todoapp.presentation.onboarding.OnBoardingFragment"
@@ -39,7 +37,6 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- 3. Home (bottom tab 1). ID todoFragment se homeFragment kar di -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.todoapp.presentation.home.HomeFragment"
@@ -51,35 +48,30 @@
             app:destination="@id/addTodoFragment" />
     </fragment>
 
-    <!-- 4. Calendar (bottom tab 2) -->
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.todoapp.presentation.calender.CalenderFragment"
         android:label="Calendar"
         tools:layout="@layout/calender" />
 
-    <!-- 5. Status (bottom tab 3) -->
     <fragment
         android:id="@+id/statusFragment"
         android:name="com.example.todoapp.presentation.status.StatusFragment"
         android:label="Status"
         tools:layout="@layout/status" />
 
-    <!-- 6. Settings (bottom tab 4) -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.todoapp.presentation.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/settings" />
 
-    <!-- 7. Add / Edit Todo -->
     <fragment
         android:id="@+id/addTodoFragment"
         android:name="com.example.todoapp.presentation.add.AddTodoFragment"
         android:label="Add Todo"
         tools:layout="@layout/add_todos">
 
-        <!-- -1 = new task, positive ID = edit task -->
         <argument
             android:name="todoId"
             android:defaultValue="-1"

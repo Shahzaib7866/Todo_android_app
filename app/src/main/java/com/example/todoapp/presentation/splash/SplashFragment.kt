@@ -21,7 +21,6 @@ class SplashFragment : BaseFragment<SplashBinding, SplashViewModel>(
     }
 
     private fun observeNavigation() {
-        // Ab yahan hamara banaya hua clean extension function use ho raha hai
         observeFlow(viewModel.navigationState) { event ->
             when (event) {
                 SplashEvents.NavigateToOnboarding ->

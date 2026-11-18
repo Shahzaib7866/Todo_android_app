@@ -12,13 +12,11 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// File level par DataStore property bilkul theek hai
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings_prefs")
 @Singleton
 class OnboardingDataStore @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    // Key ko companion object mein daal diya taake ye 'private static' rahay aur leak na ho
     companion object {
         private val ONBOARDING_COMPLETED_KEY = booleanPreferencesKey("onboarding_completed")
     }

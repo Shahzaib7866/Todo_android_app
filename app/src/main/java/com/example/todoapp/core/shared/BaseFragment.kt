@@ -14,19 +14,14 @@ import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-// VB = us fragment ki binding class (maslan HomeBinding), VM = us ka ViewModel
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
-    // Binding banane ka tareeqa; subclass sirf apni Binding::inflate dega
     private val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB,
-    // ViewModel ki class (maslan HomeViewModel::class.java)
     private val viewModelClass: Class<VM>
 ) : Fragment() {
 
     private var _binding: VB? = null
-    // Subclass mein seedha "binding" likhna hai (onDestroyView ke baad use na karna)
     protected val binding: VB get() = _binding!!
 
-    // Hilt ke saath bhi kaam karta hai (defaultViewModelProviderFactory use hoti hai)
     protected val viewModel: VM by lazy { ViewModelProvider(this)[viewModelClass] }
 
     override fun onCreateView(
@@ -42,10 +37,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
         observeViewModel()
     }
 
-    // Views setup (click listeners, adapters, etc.)
     protected abstract fun onViewReady()
 
-    // ViewModel ke LiveData/Flow observe karna
     protected abstract fun observeViewModel()
 
     override fun onDestroyView() {

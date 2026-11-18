@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// Add screen ke 3 due chips
 enum class DueOption { TODAY, UPCOMING, OVERDUE }
 
 @HiltViewModel
@@ -26,30 +25,25 @@ class AddTodoViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    // Navigation se aaya todoId; na mile to -1 (matlab naya task)
     private val todoId: Int = savedStateHandle.get<Int>("todoId") ?: -1
     val isEditMode: Boolean = todoId != -1
 
-    // Header aur button ka text, mode ke hisaab se
     val headerTitleRes: Int = if (isEditMode) R.string.edit_task else R.string.add_task
     val buttonTextRes: Int = if (isEditMode) R.string.update else R.string.save
 
-    // ---- Form ki halat ViewModel mein rakhi hai taake rotation par na ghaibe ----
-    var priority: Priority = Priority.LOW          // default Low
+    var priority: Priority = Priority.LOW
         private set
-    var status: TodoStatus = TodoStatus.PENDING    // naya task hamesha Pending
+    var status: TodoStatus = TodoStatus.PENDING
         private set
-    var dueOption: DueOption = DueOption.TODAY     // default Today
+    var dueOption: DueOption = DueOption.TODAY
         private set
-    var dueDate: Long = startOfDay(System.currentTimeMillis())   // din ki shuruaat (millis)
+    var dueDate: Long = startOfDay(System.currentTimeMillis())
         private set
 
-    // Edit mode mein DB se aaya hua task
     private val _todoState = MutableLiveData<Todo?>()
     val todoState: LiveData<Todo?> = _todoState
     private var existingTodo: Todo? = null
 
-    // Save hone ke baad "wapas jao" event (Channel = event ek hi baar milta hai)
     private val _saveSuccessEvent = Channel<Unit>()
     val saveSuccessEvent = _saveSuccessEvent.receiveAsFlow()
 
@@ -59,10 +53,8 @@ class AddTodoViewModel @Inject constructor(
                 val todo = repository.getTodo(todoId)
                 existingTodo = todo
                 if (todo != null) {
-                    // Task ki values form ki halat mein bharo
                     priority = todo.priority
                     status = todo.status
-                    // Purane tasks jin ki due date nahi, unhein Today maan lo
                     val due = todo.dueDate ?: startOfDay(System.currentTimeMillis())
                     dueDate = due
                     dueOption = optionFor(due)
@@ -72,7 +64,6 @@ class AddTodoViewModel @Inject constructor(
         }
     }
 
-    // Tareekh dekh kar batata hai ke wo Today hai, Upcoming ya Overdue
     private fun optionFor(due: Long): DueOption {
         val now = System.currentTimeMillis()
         return when {
@@ -85,19 +76,16 @@ class AddTodoViewModel @Inject constructor(
     fun setPriority(value: Priority) { priority = value }
     fun setStatus(value: TodoStatus) { status = value }
 
-    // Today chip: aaj ki tareekh khud lag jati hai
     fun selectToday() {
         dueOption = DueOption.TODAY
         dueDate = startOfDay(System.currentTimeMillis())
     }
 
-    // Upcoming / Overdue: picker se chuni hui tareekh
     fun setDate(option: DueOption, dayStart: Long) {
         dueOption = option
         dueDate = dayStart
     }
 
-    // Save ya Update: Edit mode mein purane task ki copy, warna naya Todo
     fun saveTodo(title: String, description: String) {
         val t = title.trim()
         val d = description.trim()

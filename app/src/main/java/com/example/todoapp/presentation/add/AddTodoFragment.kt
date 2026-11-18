@@ -22,15 +22,14 @@ class AddTodoFragment : BaseFragment<AddTodosBinding, AddTodoViewModel>(
 ) {
 
     override fun onViewReady() {
-        // Header/button ka text aur Status section (sirf Edit mode mein dikhta hai)
         binding.txtHeader.setText(viewModel.headerTitleRes)
         binding.btnSave.setText(viewModel.buttonTextRes)
         binding.layoutStatus.isVisible = viewModel.isEditMode
 
         setupChips()
-        renderForm()   // ViewModel ki halat ke mutabiq chips check karo
+        renderForm()
 
-        // Save button: title khali ho to error, warna ViewModel ko do
+
         binding.btnSave.setOnClickListener {
             val title = binding.inputTitle.text.toString()
             if (title.isBlank()) {
@@ -43,10 +42,8 @@ class AddTodoFragment : BaseFragment<AddTodosBinding, AddTodoViewModel>(
     }
 
     override fun observeViewModel() {
-        // Edit mode: task DB se aaye to text bharo aur chips refresh karo
         viewModel.todoState.observe(viewLifecycleOwner) { todo ->
             if (todo != null) {
-                // Rotation par text dobara overwrite na ho
                 if (binding.inputTitle.text.toString().isEmpty()) {
                     binding.inputTitle.setText(todo.title)
                     binding.inputDescription.setText(todo.description)
@@ -55,19 +52,16 @@ class AddTodoFragment : BaseFragment<AddTodosBinding, AddTodoViewModel>(
             }
         }
 
-        // Save ho jane par wapas jao (extension flow use kiya hai)
         observeFlow(viewModel.saveSuccessEvent) {
             findNavController().popBackStack()
         }
     }
 
     private fun setupChips() {
-        // Priority: chip badle to ViewModel ko batao
         binding.chipGroupPriority.setOnCheckedStateChangeListener { _, ids ->
             viewModel.setPriority(if (ids.firstOrNull() == R.id.chipPrioHigh) Priority.HIGH else Priority.LOW)
         }
 
-        // Status (sirf Edit mode)
         binding.chipGroupStatus.setOnCheckedStateChangeListener { _, ids ->
             viewModel.setStatus(
                 when (ids.firstOrNull()) {
@@ -78,13 +72,10 @@ class AddTodoFragment : BaseFragment<AddTodosBinding, AddTodoViewModel>(
             )
         }
 
-        // Today: aaj ki tareekh khud lagti hai
         binding.chipDueToday.setOnClickListener { viewModel.selectToday(); renderForm() }
-        // Upcoming: date picker kholo
         binding.chipDueUpcoming.setOnClickListener { showUpcomingDatePicker() }
     }
 
-    // ViewModel ki halat screen par dikhana
     private fun renderForm() {
         binding.chipGroupPriority.check(
             if (viewModel.priority == Priority.HIGH) R.id.chipPrioHigh else R.id.chipPrioLow

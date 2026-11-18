@@ -16,7 +16,7 @@ class CalenderFragment : BaseFragment<CalenderBinding, CalenderViewModel>(
     CalenderViewModel::class.java
 ) {
 
-    private lateinit var todoAdapter: com.example.todoapp.utils.TodoAdapter // Apne adapter ki exact type yahan rakh len
+    private lateinit var todoAdapter: com.example.todoapp.utils.TodoAdapter
 
     override fun onViewReady() {
         setupAdapter()
@@ -29,14 +29,11 @@ class CalenderFragment : BaseFragment<CalenderBinding, CalenderViewModel>(
     }
 
     private fun setupAdapter() {
-        // Agar createTodoAdapter aap ka adapter return karta hai
-        val adapter = createTodoAdapter(viewModel)
-        todoAdapter = adapter as? com.example.todoapp.utils.TodoAdapter ?: return
-        binding.rvTodos.adapter = adapter
+        todoAdapter = createTodoAdapter(viewModel)
+        binding.rvTodos.adapter = todoAdapter
     }
 
     private fun setupCalendar() {
-        // Safe check taake agar value null ho toh default date utha le
         viewModel.selectedDay.value?.let {
             binding.calendarView.date = it
         }
@@ -67,7 +64,6 @@ class CalenderFragment : BaseFragment<CalenderBinding, CalenderViewModel>(
 
     override fun onResume() {
         super.onResume()
-        // onScreenResumed ki jagah standard onResume use kiya hai
         binding.rvTodos.adapter?.notifyDataSetChanged()
     }
 }

@@ -21,7 +21,6 @@ class StatusFragment : BaseFragment<StatusBinding, StatusViewModel>(
         todoAdapter = createTodoAdapter(viewModel)
         binding.rvTodos.adapter = todoAdapter
 
-        // Chip group filter setup
         binding.chipGroupStatus.check(
             when (viewModel.filter.value) {
                 StatusFilter.ACTIVE -> R.id.chipActive
@@ -50,7 +49,6 @@ class StatusFragment : BaseFragment<StatusBinding, StatusViewModel>(
 
     override fun onResume() {
         super.onResume()
-        // Screen wapas aane par list refresh karna taake overdue label update rahe
         binding.rvTodos.adapter?.notifyDataSetChanged()
     }
 }

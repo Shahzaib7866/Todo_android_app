@@ -8,7 +8,6 @@ import java.util.TimeZone
 
 object DueDateUtils {
 
-    // MaterialDatePicker UTC midnight deta hai -> apne local din ki shuruaat
     fun pickerToLocalStart(utcMillis: Long): Long {
         val utc = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply { timeInMillis = utcMillis }
         return Calendar.getInstance().apply {
@@ -17,7 +16,6 @@ object DueDateUtils {
         }.timeInMillis
     }
 
-    // Edit karte waqt saved date ko picker ke UTC format mein wapas dena
     fun localToPicker(localMillis: Long): Long {
         val local = Calendar.getInstance().apply { timeInMillis = localMillis }
         return Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {

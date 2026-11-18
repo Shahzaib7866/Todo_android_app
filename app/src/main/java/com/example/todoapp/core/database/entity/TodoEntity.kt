@@ -6,7 +6,6 @@ import com.example.todoapp.domain.model.Todo
 import com.example.todoapp.domain.model.TodoStatus
 import com.example.todoapp.domain.model.Priority
 
-//ye entity annotation ka mutlab hai k ye class humari db ka aik table bn jahy gii
 @Entity(tableName = "Todos")
 data class TodoEntity(
     @PrimaryKey(autoGenerate = true)

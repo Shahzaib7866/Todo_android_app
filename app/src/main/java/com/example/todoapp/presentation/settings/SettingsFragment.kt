@@ -13,13 +13,11 @@ class SettingsFragment : BaseFragment<SettingsBinding, SettingsViewModel>(
 ) {
 
     override fun onViewReady() {
-        // Sirf user ke dabane par theme badle
         binding.radioLight.setOnClickListener { applyTheme(AppCompatDelegate.MODE_NIGHT_NO) }
         binding.radioDark.setOnClickListener { applyTheme(AppCompatDelegate.MODE_NIGHT_YES) }
     }
 
     override fun observeViewModel() {
-        // Saved theme ke mutabiq radio check karo
         viewModel.themeMode.observe(viewLifecycleOwner) { mode ->
             binding.radioGroupTheme.check(
                 if (mode == AppCompatDelegate.MODE_NIGHT_YES) R.id.radioDark else R.id.radioLight
@@ -28,7 +26,7 @@ class SettingsFragment : BaseFragment<SettingsBinding, SettingsViewModel>(
     }
 
     private fun applyTheme(mode: Int) {
-        viewModel.setThemeMode(mode)                    // DataStore mein save
-        AppCompatDelegate.setDefaultNightMode(mode)     // abhi lagao (Activity dobara banti hai)
+        viewModel.setThemeMode(mode)
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

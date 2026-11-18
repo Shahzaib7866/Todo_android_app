@@ -12,7 +12,6 @@ data class TodoFilter(
     val query: String = ""
 )
 
-// Home: search + time + priority
 fun List<Todo>.applyFilter(criteria: TodoFilter, now: Long = System.currentTimeMillis()): List<Todo> {
     val todayStart = startOfDay(now)
     val tomorrowStart = startOfDay(now, 1)
@@ -31,7 +30,6 @@ fun List<Todo>.applyFilter(criteria: TodoFilter, now: Long = System.currentTimeM
     }
 }
 
-// Status screen: Active = Pending + In Progress
 fun List<Todo>.filterByStatus(mode: StatusFilter): List<Todo> = filter { todo ->
     when (mode) {
         StatusFilter.ALL -> true
@@ -40,7 +38,6 @@ fun List<Todo>.filterByStatus(mode: StatusFilter): List<Todo> = filter { todo ->
     }
 }
 
-// Calendar screen
 fun List<Todo>.dueOnDay(dayStart: Long): List<Todo> {
     val next = startOfDay(dayStart, 1)
     return filter { val d = it.dueDate; d != null && d >= dayStart && d < next }
@@ -54,7 +51,6 @@ fun startOfDay(millis: Long, plusDays: Int = 0): Long =
         set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
     }.timeInMillis
 
-// Overdue ka ek hi rule: tareekh guzri ho aur task complete na ho
 fun Todo.isOverdue(now: Long = System.currentTimeMillis()): Boolean {
     val due = dueDate ?: return false
     return due < startOfDay(now) && status != TodoStatus.COMPLETED

@@ -1,16 +1,13 @@
 package com.example.todoapp.presentation.onboarding
 
-import android.os.Bundle
-import android.view.View
+
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.todoapp.R
 import com.example.todoapp.core.shared.BaseFragment
-import com.example.todoapp.databinding.AddTodosBinding
 import com.example.todoapp.databinding.OnBoardingBinding
-import com.example.todoapp.presentation.add.AddTodoViewModel
 import com.example.todoapp.utils.observeFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.jvm.java
@@ -32,7 +29,6 @@ class OnBoardingFragment : BaseFragment<OnBoardingBinding, OnBoardingViewModel>(
         observeNavigation()
     }
 
-    // ViewPager2 mein 3 pages lagao aur page badalne par buttons ka text update karo
     private fun setupPager() {
         binding.viewPager.adapter = OnBoardingPagerAdapter(viewModel.pages)
 
@@ -42,7 +38,6 @@ class OnBoardingFragment : BaseFragment<OnBoardingBinding, OnBoardingViewModel>(
         updateButtons(binding.viewPager.currentItem)
     }
 
-    // Aakhri page par "Get Started" aur Skip chhupa do
     private fun updateButtons(position: Int) {
         val isLast = position == viewModel.pages.lastIndex
         binding.btnNext.text = if (isLast) getString(R.string.get_started) else getString(R.string.next)
@@ -61,7 +56,6 @@ class OnBoardingFragment : BaseFragment<OnBoardingBinding, OnBoardingViewModel>(
         binding.btnSkip.setOnClickListener { viewModel.onGetStartedClicked() }
     }
 
-    // Back: pehle page par ho to app se bahar, warna pichle page par
     private fun setupBackPress() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (binding.viewPager.currentItem == 0) {
@@ -73,7 +67,6 @@ class OnBoardingFragment : BaseFragment<OnBoardingBinding, OnBoardingViewModel>(
         }
     }
 
-    // Onboarding khatam hone par Home par jao (naye observeFlow extension ke sath)
     private fun observeNavigation() {
         observeFlow(viewModel.navigateToHome) {
             findNavController().navigate(R.id.action_onBoardingFragment_to_todoFragment)

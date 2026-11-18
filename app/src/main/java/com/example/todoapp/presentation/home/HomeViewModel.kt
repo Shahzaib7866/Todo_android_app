@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     private val _filter = MutableLiveData(TodoFilter())
     val filter: LiveData<TodoFilter> = _filter
 
-    var isSearchOpen = false   // rotation par search ki halat yaad rahe
+    var isSearchOpen = false
 
     val todos: LiveData<List<Todo>> = MediatorLiveData<List<Todo>>().apply {
         addSource(allTodos) { list -> value = list.applyFilter(_filter.value!!) }

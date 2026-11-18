@@ -8,7 +8,6 @@
     android:padding="24dp"
     tools:context=".presentation.onboarding.OnBoardingFragment">
 
-    <!-- Skip: upar right par (aakhri page par chhup jata hai) -->
     <Button
         android:id="@+id/btnSkip"
         style="?attr/borderlessButtonStyle"
@@ -18,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Pages: top parent se (Skip chhupne par jump na ho), neeche Next button tak -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
@@ -29,7 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Next / Get Started -->
     <Button
         android:id="@+id/btnNext"
         android:layout_width="0dp"

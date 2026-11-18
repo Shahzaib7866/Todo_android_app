@@ -34,7 +34,6 @@ class TodoAdapter(
                 root.setOnClickListener { onClick(todo) }
                 btnDelete.setOnClickListener { onDelete(todo) }
 
-                // Status label aur Overdue label
                 txtStatus.showStatus(todo.status)
                 txtOverdue.isVisible = todo.isOverdue()
             }
@@ -43,7 +42,7 @@ class TodoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val binding = ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TodoViewHolder(binding) // Yahan TodoAdapter. likhne ki zaroorat nahi
+        return TodoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {

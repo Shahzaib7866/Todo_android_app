@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- Image, Title aur Description ek vertical chain mein (beech mein jame hue) -->
     <ImageView
         android:id="@+id/imgOnboarding"
         android:layout_width="240dp"

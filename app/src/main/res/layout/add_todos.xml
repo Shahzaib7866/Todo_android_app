@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Upar ka title (Add Task / Edit Task) -->
     <TextView
         android:id="@+id/txtHeader"
         android:layout_width="0dp"
@@ -18,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Header aur Save button ke darmiyan scroll hone wala form -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -100,7 +98,6 @@
                     android:text="@string/priority_high" />
             </com.google.android.material.chip.ChipGroup>
 
-            <!-- Due date: Today / Upcoming / Overdue -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,14 +125,12 @@
 
             </com.google.android.material.chip.ChipGroup>
 
-            <!-- Chuni hui tareekh yahan likhi aati hai -->
             <TextView
                 android:id="@+id/txtDueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?android:attr/textColorPrimary" />
 
-            <!-- Status: sirf Edit mode mein dikhta hai (Fragment visibility set karta hai) -->
             <LinearLayout
                 android:id="@+id/layoutStatus"
                 android:layout_width="match_parent"

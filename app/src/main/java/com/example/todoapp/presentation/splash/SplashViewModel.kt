@@ -18,7 +18,6 @@ class SplashViewModel @Inject constructor(
     private val onboardingPreferences: OnboardingDataStore
 ) : ViewModel() {
 
-    // --- EVENT: Navigation aik one-time event hai, is liye SharedFlow use kiya hai ---
     private val _navigationEvents = MutableSharedFlow<SplashEvents>()
     val navigationState: SharedFlow<SplashEvents> = _navigationEvents.asSharedFlow()
 

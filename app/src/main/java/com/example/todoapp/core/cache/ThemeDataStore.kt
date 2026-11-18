@@ -16,10 +16,7 @@ class ThemeDataStore @Inject constructor(
 ) {
     private val key = intPreferencesKey("theme_mode")
 
-//    val themeMode: Flow<Int> = context.dataStore.data
-//        .map { it[key] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM }
 
-    // Sirf Dark save ho to Dark, baqi sab kuch (purana "System default" bhi) Light
     val themeMode: Flow<Int> = context.dataStore.data.map { prefs ->
         if (prefs[key] == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_YES
         else AppCompatDelegate.MODE_NIGHT_NO

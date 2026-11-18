@@ -18,21 +18,18 @@ class OnBoardingViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    // class ke andar, channel ke upar:
     val pages = listOf(
         OnBoardingPage(R.drawable.todo, R.string.onboarding_title_1, R.string.onboarding_desc_1),
         OnBoardingPage(R.drawable.todo, R.string.onboarding_title_2, R.string.onboarding_desc_2),
         OnBoardingPage(R.drawable.todo, R.string.onboarding_title_3, R.string.onboarding_desc_3)
     )
 
-    // --- EVENT: Navigation aik one-time event hai, is liye SharedFlow use kiya hai ---
     private val _navigateToHome = MutableSharedFlow<Unit>()
     val navigateToHome: SharedFlow<Unit> = _navigateToHome.asSharedFlow()
 
     fun onGetStartedClicked() {
         viewModelScope.launch {
             onboardingPreferences.saveOnboardingCompleted(true)
-            // Event emit kar diya, ab manually state reset karne ki zaroorat nahi
             _navigateToHome.emit(Unit)
         }
     }

@@ -15,7 +15,6 @@ class TodoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Chhoti si file hai, is liye startup par ek dafa parhna theek hai (warna theme ka flicker aata)
         val mode = runBlocking { themeDataStore.themeMode.first() }
         AppCompatDelegate.setDefaultNightMode(mode)
     }
